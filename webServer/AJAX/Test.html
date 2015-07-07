@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script>
+$(document).ready(function()
+{
+  $("#btn1").click(function()
+  {
+    $('#test').load('demo_test.txt');
+  });
+});
+
+$(document).ready(function()
+{
+	$("#btn2").click(function()
+	{
+		$("#div1").load('demo_test.txt');
+	});
+});
+
+$(document).ready(function()
+{
+	$("#btn3").click(function()
+	{
+		$("#div1").load("demo_test.txt",function(responseTxt,statusTxt,xhr)
+		{
+			if(statusTxt == "success")
+				alert("外部内容加载成功！");
+			if(statusTxt == "error")
+				alert("Error: " + xhr.status + ": " + xhr.statusTxt);
+		});
+	});
+});
+
+$(document).ready(function()
+{
+	$("#btn4").click(function()
+	{
+		$.get("/AJAX/demo_test.asp",function(data,status)
+		{
+			alert("Data: " + data + "\nStatus: " + status);
+		});
+	});
+});
+
+// $.noConflict();
+// jQuery(document).ready(function(){
+//   jQuery("#btn6").click(function(){
+//     jQuery("#p1").text("jQuery 仍在运行！");
+//   });
+// });
+//若要$.noConflict()生效，<script>中不能再出现$来代替jQuery，需全替换成全写
+
+$(document).ready(function()
+{
+	$("#btn5").click(function()
+	{
+		$.post("/AJAX/demo_test.asp",
+		{
+			name:"Donald Duck",
+			city:"Duckburg"
+		},
+		function(data,status)
+		{
+			alert("data: " + data + "\nstatus: " + status);
+		});
+	});
+});
+
+</script>
+</head>
+
+<body>
+
+<h3 id="test">请点击下面的按钮，通过 jQuery AJAX 改变这段文本。</h3>
+<button id="btn1" type="button">获得外部的内容</button>
+<br>
+<div id="div1">
+<h2>使用JQ改变文本</h2>
+</div>
+<br>
+<button id="btn2">异步请求</button>
+<button id="btn3">ajax request</button>
+<button id="btn4">Get request</button>
+<button id="btn5">Post request</button>
+<p id=p1>Change the text.</p>
+<button id="btn6">jQuery</button>
+
+<h2>377829</h2>
+</body>
+</html>
+
+
+
+
